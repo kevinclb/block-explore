@@ -2,10 +2,8 @@ package main
 
 import (
 	"github.com/kevinclb/block-explore/explorer"
-	_ "io"
 	"log"
 	"net/http"
-	_ "os"
 )
 
 func main() {
