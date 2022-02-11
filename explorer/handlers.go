@@ -49,4 +49,27 @@ func InitializeHandlers() {
 	http.HandleFunc("/get-eth", GetBTCSellPriceHandler)
 	http.HandleFunc("get-btc-sell", GetETHBuyPriceHandler)
 	http.HandleFunc("/get-eth-sell", GetETHSellPriceHandler)
+
+	TryCatcher(true)
+}
+
+func TryCatcher(isThereAnError bool) (bool, error) {
+	if isThereAnError == true {
+		fmt.Println("There is an error!")
+		return isThereAnError, ErrorThrower{customData: 3}
+	} else {
+		return isThereAnError, ErrorThrower{customData: 2}
+	}
+}
+
+type ErrorThrower struct {
+	customData int
+}
+
+func (e ErrorThrower) Error() string {
+	if e.customData == 3 {
+		return "i was told to create this error (ErrorThrower had 3)"
+	} else {
+		return "i was not told to create this error (ErrorThrower did not have 3)"
+	}
 }
