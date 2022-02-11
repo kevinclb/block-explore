@@ -17,15 +17,16 @@ import (
 //depending on the specific market data desired.
 const (
 	coinbaseURL = "https://api.coinbase.com/v2/prices/"
-	BTCBuy = "BTC-USD/buy"
-	ETHBuy = "ETH-USD/buy"
-	BTCSell = "BTC-USD/sell"
-	ETHSell = "ETH-USD/sell"
+	BTCBuy      = "BTC-USD/buy"
+	ETHBuy      = "ETH-USD/buy"
+	BTCSell     = "BTC-USD/sell"
+	ETHSell     = "ETH-USD/sell"
 )
 
-func GetMarketData(urlPath string) ([]byte, string) {
-	defaultURL := urlSpecifier(urlPath)
-	req, err := http.NewRequest("GET", defaultURL, nil)
+//GetPriceData takes a url
+func GetPriceData(urlPath string) ([]byte, string) {
+	requestURL := urlSpecifier(urlPath)
+	req, err := http.NewRequest("GET", requestURL, nil)
 
 	if err != nil {
 		log.Fatal("error creating new request: ", err)
@@ -40,9 +41,4 @@ func GetMarketData(urlPath string) ([]byte, string) {
 	}(res.Body)
 	body, _ := ioutil.ReadAll(res.Body)
 	return body, string(body)
-}
-
-func urlSpecifier(urlPath string) string {
-	defaultURL := coinbaseURL + urlPath
-	return defaultURL
 }
